@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos - Sistema de Academia</title>
+    <!-- Font Awesome CDN para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css"> <!-- link para seu CSS global -->
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="dashboard.html" class="sidebar-item">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </a>
+        <a href="alunos.html" class="sidebar-item active">
+            <i class="fas fa-user-graduate"></i>
+            <span>Alunos</span>
+        </a>
+        <a href="professores.html" class="sidebar-item">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Professores</span>
+        </a>
+        <a href="aulas.html" class="sidebar-item">
+            <i class="fas fa-book"></i>
+            <span>Aulas</span>
+        </a>
+        <a href="turmas.html" class="sidebar-item">
+            <i class="fas fa-users"></i>
+            <span>Turmas</span>
+        </a>
+        <a href="financeiro.html" class="sidebar-item">
+            <i class="fas fa-dollar-sign"></i>
+            <span>Financeiro</span>
+        </a>
+        <a href="configuracoes.html" class="sidebar-item">
+            <i class="fas fa-cog"></i>
+            <span>Configurações</span>
+        </a>
+        <a href="logout.html" class="sidebar-item" style="margin-top: auto;">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sair</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>Alunos</h1>
+            <div class="admin-profile">
+                <span>Admin</span>
+                <div class="admin-avatar">A</div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Barra de ações -->
+            <div class="actions-bar">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar alunos...">
+                </div>
+                <button class="add-button">
+                    <i class="fas fa-plus"></i>
+                    Novo Aluno
+                </button>
+            </div>
+
+            <!-- Tabela de alunos -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Email</th>
+                            <th>Plano atual</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Exemplo de aluno -->
+                        <tr>
+                            <td>1</td>
+                            <td>Ana Silva</td>
+                            <td>123.456.789-10</td>
+                            <td>ana.silva@email.com</td>
+                            <td>Mensal</td>
+                            <td><span class="status active">Ativo</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-button edit-button">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-button delete-button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Repita para os outros alunos -->
+                        <!-- ... os outros alunos continuam aqui iguais ao seu original ... -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

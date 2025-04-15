@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Sistema de Gerenciamento de Academia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f5f5f5;
+        }
+
+        .sidebar {
+            width: 60px;
+            height: 100vh;
+            background-color: #2c3e50;
+            color: white;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar a {
+            width: 100%;
+            padding: 15px 0;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .sidebar a i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a.active {
+            background-color: #1a2530;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
+
+        .main-content {
+            margin-left: 60px;
+            width: calc(100% - 60px);
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile span {
+            margin-right: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .section-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        select.form-control {
+            height: 36px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .col {
+            padding: 0 10px;
+            flex: 1;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-save {
+            background-color: #2ecc71;
+        }
+
+        .btn-save:hover {
+            background-color: #27ae60;
+        }
+
+        .form-actions {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2ecc71;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .user-list {
+            margin-top: 15px;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .badge-admin {
+            background-color: #e74c3c;
+        }
+
+        .badge-staff {
+            background-color: #3498db;
+        }
+
+        .logo-preview {
+            width: 100px;
+            height: 100px;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-preview i {
+            font-size: 32px;
+            color: #aaa;
+        }
+
+        textarea.form-control {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .operating-hours {
+            margin-top: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .day-hours {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .day-hours label {
+            width: 120px;
+            font-weight: normal;
+        }
+
+        .hours-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .hours-input input {
+            width: 80px;
+            margin: 0 5px;
+        }
+
+        .hours-input span {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="dashboard.html">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </a>
+        <a href="alunos.html">
+            <i class="fas fa-user-graduate"></i>
+            <span>Alunos</span>
+        </a>
+        <a href="professores.html">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Professores</span>
+        </a>
+        <a href="aulas.html">
+            <i class="fas fa-book"></i>
+            <span>Aulas</span>
+        </a>
+        <a href="turmas.html">
+            <i class="fas fa-users"></i>
+            <span>Turmas</span>
+        </a>
+        <a href="financeiro.html">
+            <i class="fas fa-dollar-sign"></i>
+            <span>Financeiro</span>
+        </a>
+        <a href="configuracoes.html" class="active">
+            <i class="fas fa-cog"></i>
+            <span>Configu- rações</span>
+        </a>
+        <a href="logout.html" style="margin-top: auto;">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sair</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Configurações</h1>
+            <div class="user-profile">
+                <span>Admin</span>
+                <div class="user-avatar">A</div>
+            </div>
+        </div>
+
+        <!-- Informações do Sistema -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-building"></i>
+                Informações do Sistema
+            </h2>
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="academia-nome">Nome da Academia</label>
+                            <input type="text" id="academia-nome" class="form-control" value="Fitness Center Pro">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="logo">Logotipo</label>
+                            <div class="logo-preview">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <input type="file" id="logo" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <textarea id="endereco" class="form-control">Av. Paulista, 1000 - São Paulo/SP</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Horário de Funcionamento</label>
+                    <div class="operating-hours">
+                        <div class="day-hours">
+                            <label>Segunda-Sexta:</label>
+                            <div class="hours-input">
+                                <input type="time" class="form-control" value="06:00">
+                                <span>às</span>
+                                <input type="time" class="form-control" value="22:00">
+                            </div>
+                        </div>
+                        <div class="day-hours">
+                            <label>Sábado:</label>
+                            <div class="hours-input">
+                                <input type="time" class="form-control" value="08:00">
+                                <span>às</span>
+                                <input type="time" class="form-control" value="18:00">
+                            </div>
+                        </div>
+                        <div class="day-hours">
+                            <label>Domingo:</label>
+                            <div class="hours-input">
+                                <input type="time" class="form-control" value="08:00">
+                                <span>às</span>
+                                <input type="time" class="form-control" value="14:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-save">Salvar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Usuários e Permissões -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-users-cog"></i>
+                Usuários e Permissões
+            </h2>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="novo-usuario">Adicionar Novo Usuário</label>
+                        <div style="display: flex;">
+                            <input type="text" id="novo-usuario" class="form-control" placeholder="E-mail do usuário">
+                            <select class="form-control" style="width: 150px; margin-left: 10px;">
+                                <option>Administrador</option>
+                                <option>Funcionário</option>
+                            </select>
+                            <button type="button" class="btn" style="margin-left: 10px;">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-list">
+                <div class="user-item">
+                    <div>
+                        <strong>admin@fitnesscenter.com</strong>
+                        <div>Último acesso: 08/04/2025 09:15</div>
+                    </div>
+                    <div>
+                        <span class="badge badge-admin">Administrador</span>
+                    </div>
+                </div>
+                <div class="user-item">
+                    <div>
+                        <strong>joao@fitnesscenter.com</strong>
+                        <div>Último acesso: 07/04/2025 18:30</div>
+                    </div>
+                    <div>
+                        <span class="badge badge-staff">Funcionário</span>
+                    </div>
+                </div>
+                <div class="user-item">
+                    <div>
+                        <strong>maria@fitnesscenter.com</strong>
+                        <div>Último acesso: 06/04/2025 12:45</div>
+                    </div>
+                    <div>
+                        <span class="badge badge-staff">Funcionário</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn btn-save">Salvar</button>
+            </div>
+        </div>
+
+        <!-- Preferências Gerais -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-sliders-h"></i>
+                Preferências Gerais
+            </h2>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="idioma">Idioma</label>
+                        <select id="idioma" class="form-control">
+                            <option selected>Português (Brasil)</option>
+                            <option>English (US)</option>
+                            <option>Español</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="moeda">Moeda</label>
+                        <select id="moeda" class="form-control">
+                            <option selected>R$ (Real)</option>
+                            <option>$ (Dólar)</option>
+                            <option>€ (Euro)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="tema">Tema</label>
+                        <div style="display: flex; align-items: center;">
+                            <span style="margin-right: 10px;">Claro</span>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                            <span style="margin-left: 10px;">Escuro</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="notificacoes">Notificações por E-mail</label>
+                        <div style="display: flex; align-items: center;">
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-save">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para funcionalidades interativas aqui
+        document.addEventListener('DOMContentLoaded', function() {
+            // Exemplo de manipulação do upload de logo
+            document.getElementById('logo').addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const logoPreview = document.querySelector('.logo-preview');
+                    logoPreview.innerHTML = '';
+                    
+                    const img = document.createElement('img');
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'contain';
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        img.src = event.target.result;
+                        logoPreview.appendChild(img);
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+            
+            // Exemplo de manipulação dos botões de salvar
+            const saveButtons = document.querySelectorAll('.btn-save');
+            saveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Configurações salvas com sucesso!');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
